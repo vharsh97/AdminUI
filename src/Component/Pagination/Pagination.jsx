@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import classnames from "classnames";
 import {
   BiChevronLeft,
@@ -7,11 +7,22 @@ import {
   BiChevronsRight,
 } from "react-icons/bi";
 import { usePagination } from "../../Utils/usePagination";
+import { UserContext } from "../../Utils/context";
 import "./Pagination.css";
 
 const Pagination = (props) => {
-  const { handlePageChange, totalCount, currentPage, pageSize, className } =
-    props;
+  const [users, setUsers, filteredUsers, setFilteredUsers, value, setValue] =
+    useContext(UserContext);
+
+  const {
+    handlePageChange,
+    totalCount,
+    currentPage,
+    pageSize,
+    className,
+    selectAll,
+    toggleDelete
+  } = props;
 
   const paginationRange = usePagination({
     currentPage,
@@ -25,20 +36,41 @@ const Pagination = (props) => {
 
   let lastPage = paginationRange[paginationRange.length - 1];
 
+  // function to deselect all the selected users on currentpage on pagination
+  const resetSelection = () => {
+    selectAll.current.checked = false;
+    toggleDelete(false);
+    users.forEach((data) => {
+      data.isChecked = false;
+    });
+    setUsers([...users]);
+  };
+
+  // navigation of the pages
+
   const handleFirstPage = () => {
     handlePageChange(1);
+    resetSelection();
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) handlePageChange(currentPage - 1);
+    resetSelection();
   };
 
   const handleNext = () => {
     if (currentPage < paginationRange.length) handlePageChange(currentPage + 1);
+    resetSelection();
   };
 
   const handleLastPage = () => {
     handlePageChange(lastPage);
+    resetSelection();
+  };
+
+  const handlePageClick = (pageNumber) => {
+    handlePageChange(pageNumber);
+    resetSelection();
   };
 
   return (
@@ -76,7 +108,7 @@ const Pagination = (props) => {
           className={classnames("pagination-item", {
             selected: pageNumber === currentPage,
           })}
-          onClick={() => handlePageChange(pageNumber)}
+          onClick={() => handlePageClick(pageNumber)}
         >
           {pageNumber}
         </li>

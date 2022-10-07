@@ -64,14 +64,12 @@ FUNCTION TO RENDER PAGINATED DATA
     const lastPageIndex = firstPageIndex + PageSize;
     let currentTableData = [];
     if (filteredUsers.length > 0) {
-      setCurrentPage(1);
       if (filteredUsers.length <= PageSize) currentTableData = filteredUsers;
       else
         currentTableData = filteredUsers.slice(firstPageIndex, lastPageIndex);
     } else
-      currentTableData = users
-        ? users.slice(firstPageIndex, lastPageIndex)
-        : [];
+      currentTableData =
+        users.length > 0 ? users.slice(firstPageIndex, lastPageIndex) : [];
     // console.log(currentTableData);
     setCurrentRecords(currentTableData);
   };
@@ -85,8 +83,13 @@ FUNCTION TO RENDER PAGINATED DATA
     currentRecords.forEach((data) => {
       data.isChecked = selectAll.current.checked;
     });
+    setShowDelete(selectAll.current.checked);
     setCurrentRecords([...currentRecords]);
   };
+
+  // const testing = () => {
+  //   console.log(currentRecords);
+  // };
 
   // delete users that are selected via checkbox
   const deleteSelected = () => {
@@ -109,7 +112,7 @@ FUNCTION TO RENDER PAGINATED DATA
         if (remainingFilteredUsers.length === 0) setValue("");
         selectAll.current.checked = false;
         setShowDelete(false);
-        if (currentPage > 1) setCurrentPage(currentPage - 1);
+        // testing();
         Swal.fire({
           icon: "success",
           title: "Deleted!",
@@ -190,6 +193,8 @@ FUNCTION TO RENDER PAGINATED DATA
                     }
                     pageSize={PageSize}
                     handlePageChange={(page) => setCurrentPage(page)}
+                    selectAll={selectAll}
+                    toggleDelete={(val) => setShowDelete(val)}
                   />
                 </Col>
               </Row>

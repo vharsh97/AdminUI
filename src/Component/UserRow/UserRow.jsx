@@ -15,10 +15,12 @@ function UserRow({ user, toggleDelete }) {
 
   const handleCheck = () => {
     // console.log(e.target.checked);
-    toggleDelete(!user.isChecked);
+    let flag = false;
     users.forEach((data) => {
       if (data.id === user.id) data.isChecked = !data.isChecked;
+      if (data.isChecked) flag = true;
     });
+    toggleDelete(flag);
     setUsers([...users]);
   };
 
@@ -96,6 +98,7 @@ function UserRow({ user, toggleDelete }) {
     const remainingFilteredUsers = filteredUsers.filter(
       (data) => data.id !== user.id
     );
+    let flag = false;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -109,6 +112,10 @@ function UserRow({ user, toggleDelete }) {
         setUsers(remainingUsers);
         setFilteredUsers(remainingFilteredUsers);
         if (remainingFilteredUsers.length === 0) setValue("");
+        remainingUsers.forEach((data) => {
+          if (data.isChecked) flag = true;
+        });
+        toggleDelete(flag);
         Swal.fire({
           icon: "success",
           title: "Deleted!",

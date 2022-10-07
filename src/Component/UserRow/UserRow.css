@@ -1,0 +1,13 @@
+.rowSelected {
+  background-color: rgba(211, 211, 211, 0.827);
+}
+.editButton,
+.saveButton {
+  cursor: pointer;
+  font-size: 20px;
+}
+.deleteButton {
+  cursor: pointer;
+  font-size: 20px;
+  color: red;
+}

@@ -1,0 +1,45 @@
+.pagination-container {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.pagination-item {
+  padding: 0 12px;
+  height: 32px;
+  text-align: center;
+  margin: auto 1px;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  letter-spacing: 0.01071em;
+  border-radius: 16px;
+  line-height: 1.43;
+  font-size: 16px;
+  min-width: 32px;
+}
+
+.pagination-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.selected {
+  background-color: rgba(26, 238, 227, 0.733);
+}
+
+.arrow {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.disabled {
+  pointer-events: none;
+  color: grey;
+}
+
+.disabled:hover {
+  background-color: transparent;
+  cursor: default;
+}

@@ -137,7 +137,7 @@ FUNCTION TO RENDER PAGINATED DATA
       ) : (
         <Container fluid>
           {users.length > 0 && (
-            <Table responsive>
+            <Table responsive data-testid="users-table">
               <thead>
                 <tr>
                   <th scope="col">

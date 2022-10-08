@@ -52,14 +52,14 @@ describe("Users Page", () => {
     await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
   });
 
-  it("should have a search bar", () => {
-    const searchInput = screen.getAllByPlaceholderText(/search/i)[0];
-    expect(searchInput).toBeInTheDocument();
-  });
-
   it("should make a GET request to load users", () => {
     const getUsersCall = mock.history.get.find((req) => req.url === url);
     expect(getUsersCall).toBeTruthy();
+  });
+
+  it("should have a search bar", () => {
+    const searchInput = screen.getAllByPlaceholderText(/search/i)[0];
+    expect(searchInput).toBeInTheDocument();
   });
 
   it("should have a table", () => {
@@ -68,7 +68,9 @@ describe("Users Page", () => {
   });
 
   it("should have delete selected button", () => {
-    const deleteSelectedButton = screen.getByRole("button", { name: /delete selected/i });
+    const deleteSelectedButton = screen.getByRole("button", {
+      name: /delete selected/i,
+    });
     expect(deleteSelectedButton).toBeInTheDocument();
   });
 
